@@ -7,15 +7,18 @@ const dataSave = function (data) {
 	localStorage.setItem("videoplayer-current-time", data.seconds);
 }
 player.on('timeupdate', throttle(dataSave, 1000));
+const getTimePlayer = localStorage.getItem("videoplayer-current-time");
 
-player.setCurrentTime(localStorage.getItem("videoplayer-current-time")).then(function () {
-}).catch(function (error) {
-	switch (error.name) {
-		case 'RangeError':
-			break;
-		default:
-			break;
-	}
-});
+if (getTimePlayer) {
+	player.setCurrentTime(getTimePlayer).then(function () {
+	}).catch(function (error) {
+		switch (error.name) {
+			case 'RangeError':
+				break;
+			default:
+				break;
+		}
+	});
+}
 
 
